@@ -10,7 +10,7 @@ import "./styles.scss";
 const store = createStore(rootReducer);
 ReactDOM.render(
   <Provider store={store}>
-    <App name="Jane" />
+    <App />
   </Provider>,
   document.getElementById("app")
 );
