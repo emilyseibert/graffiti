@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+
 import { changeOpacity } from "../actions";
 
 const StrokeOpacity = ({ opacity }) => {
@@ -21,6 +23,10 @@ const StrokeOpacity = ({ opacity }) => {
       </label>
     </div>
   );
+};
+
+StrokeOpacity.propTypes = {
+  opacity: PropTypes.string.isRequired,
 };
 
 export default StrokeOpacity;

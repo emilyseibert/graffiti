@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+
 import { changeColor } from "../actions";
 
 const Colorpicker = ({ color }) => {
@@ -20,6 +22,10 @@ const Colorpicker = ({ color }) => {
       </label>
     </div>
   );
+};
+
+Colorpicker.propTypes = {
+  color: PropTypes.string.isRequired,
 };
 
 export default Colorpicker;
