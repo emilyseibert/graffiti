@@ -29,13 +29,8 @@ const Canvas = () => {
   //   channel.postMessage(`broadcast is ${broadcasting ? "on" : "off"}`);
   // }, [broadcasting]);
 
-  // handles mouse events status
+  // handles mouse down
   useEffect(() => {
-    const handleMouseUp = (e) => {
-      setIsDrawing(false);
-      setPosition(null);
-    };
-
     const handleMouseDown = (e) => {
       setIsDrawing(true);
       const nextPosition = {
@@ -46,6 +41,13 @@ const Canvas = () => {
       setPosition(nextPosition);
     };
 
+    canvasEl.current.addEventListener("mousedown", handleMouseDown);
+    return () =>
+      canvasEl.current.removeEventListener("mousedown", handleMouseDown);
+  }, [isDrawing]);
+
+  //handle mouse move
+  useEffect(() => {
     const handleMouseMove = (e) => {
       if (!isDrawing) return;
       const nextPosition = {
@@ -57,14 +59,23 @@ const Canvas = () => {
       setPosition(nextPosition);
     };
 
-    canvasEl.current.addEventListener("mousedown", handleMouseDown);
-    canvasEl.current.addEventListener("mouseup", handleMouseUp);
     canvasEl.current.addEventListener("mousemove", handleMouseMove);
+    return () =>
+      canvasEl.current.removeEventListener("mousemove", handleMouseMove);
+  });
+
+  // handle mouse up
+  useEffect(() => {
+    const handleMouseUp = (e) => {
+      setIsDrawing(false);
+      setPosition(null);
+      channel.postMessage(null);
+    };
+
+    canvasEl.current.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      canvasEl.current.removeEventListener("mousedown", handleMouseDown);
       canvasEl.current.removeEventListener("mouseup", handleMouseUp);
-      canvasEl.current.removeEventListener("mousemove", handleMouseMove);
     };
   }, [isDrawing]);
 
