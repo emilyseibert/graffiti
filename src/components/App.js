@@ -1,10 +1,11 @@
-import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { startChannel, closeChannel, sendMessage } from "../actions";
 
 import Canvas from "./Canvas";
 
 const App = () => {
-  const channel = useMemo(() => new BroadcastChannel("graffiti"), []);
+  const dispatch = useDispatch();
   // drawPath is [{x: ..., y:...}] where if coord x/y is null ==> line break
   const drawPath = useSelector((state) => state.draw);
 
@@ -14,11 +15,16 @@ const App = () => {
     const newWindow = window.open(`${window.location.origin}/preview.html`);
     newWindow.addEventListener("load", () => {
       // send store of draw
-      channel.postMessage(drawPath);
+      dispatch(sendMessage(drawPath));
     });
   };
 
-  console.log("draw path", drawPath);
+  useEffect(() => {
+    dispatch(startChannel());
+
+    return () => dispatch(closeChannel());
+  }, []);
+
   return (
     <>
       <h1 className="text-4xl text-white bg-black">Hello</h1>
