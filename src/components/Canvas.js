@@ -29,13 +29,6 @@ const Canvas = () => {
   //   channel.postMessage(`broadcast is ${broadcasting ? "on" : "off"}`);
   // }, [broadcasting]);
 
-  // handles sending drawing positions
-  useEffect(() => {
-    if (isDrawing) {
-      channel.postMessage("drawing!");
-    }
-  }, [isDrawing]);
-
   // handles mouse events status
   useEffect(() => {
     const handleMouse = (e) => {
@@ -43,20 +36,26 @@ const Canvas = () => {
       setIsDrawing(isStartingToDraw);
 
       if (isStartingToDraw) {
-        setPosition({
+        const nextPosition = {
           x: e.clientX - canvasEl.current.offsetLeft,
           y: e.clientY - canvasEl.current.offsetTop,
-        });
+        };
+        channel.postMessage(nextPosition);
+        setPosition(nextPosition);
       }
     };
 
     const handleMouseMove = (e) => {
       if (!isDrawing) return;
-      setPosition({
+      const nextPosition = {
         x: e.clientX - canvasEl.current.offsetLeft,
         y: e.clientY - canvasEl.current.offsetTop,
-      });
+      };
+      channel.postMessage(nextPosition);
+
+      setPosition(nextPosition);
     };
+
     canvasEl.current.addEventListener("mousedown", handleMouse);
     canvasEl.current.addEventListener("mouseup", handleMouse);
     canvasEl.current.addEventListener("mousemove", handleMouseMove);
@@ -77,9 +76,6 @@ const Canvas = () => {
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.strokeStyle = "blue";
-    console.log(
-      `from ${previousPosition.x},${previousPosition.y} to ${position.x}, ${position.y}`
-    );
     ctx.moveTo(previousPosition.x, previousPosition.y);
     ctx.lineTo(position.x, position.y);
     ctx.stroke();
