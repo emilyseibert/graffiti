@@ -25,7 +25,7 @@ const draw = (channelCoords) => {
   ctx.beginPath();
   ctx.lineWidth = 5;
   ctx.lineCap = "round";
-  ctx.strokeStyle = "green";
+  // ctx.strokeStyle = "green";
   ctx.moveTo(coord.x, coord.y);
 
   // update coords to be channelCoords
