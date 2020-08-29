@@ -12,6 +12,8 @@ const draw = (channelCoords) => {
   ctx.lineWidth = 5;
   ctx.lineCap = "round";
   ctx.strokeStyle = "green";
+
+  // if null, then line break. use same coords for both before & after of stroke.
   if (coord.x) {
     ctx.moveTo(coord.x, coord.y);
   } else {
@@ -27,8 +29,8 @@ const draw = (channelCoords) => {
 };
 
 channel.addEventListener("message", (event) => {
-  // if data is null, then mouseup has fired. reset coords.
-  if (!event.data) {
+  // if data at x coord is null, then mouseup has fired. reset coords.
+  if (!event.data.x) {
     coord.x = null;
     coord.y = null;
   } else {

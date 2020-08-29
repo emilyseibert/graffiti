@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleBroadcast } from "../actions";
+import { addPosition } from "../actions";
 /*
 https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
 */
@@ -13,17 +13,19 @@ function usePrevious(value) {
 }
 
 const Canvas = () => {
+  const dispatch = useDispatch();
+  // drawPath is [{x: ..., y:...}] where if coord x/y is null ==> line break
+  const drawPath = useSelector((state) => state.draw);
+  const addPosition = () => {
+    // when firing update to store, pass in local state position from mouseevent
+    dispatch(addPosition(position));
+  };
+
   const canvasEl = useRef(null);
 
   const [isDrawing, setIsDrawing] = useState(false);
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState({ x: null, y: null });
   const previousPosition = usePrevious(position);
-
-  const dispatch = useDispatch();
-  const broadcasting = useSelector((state) => state.broadcast);
-  const toggleBroadcasting = () => {
-    dispatch(toggleBroadcast(!broadcasting));
-  };
 
   const channel = useMemo(() => new BroadcastChannel("graffiti"), []);
 
@@ -66,8 +68,8 @@ const Canvas = () => {
   useEffect(() => {
     const handleMouseUp = (e) => {
       setIsDrawing(false);
-      setPosition(null);
-      channel.postMessage(null);
+      setPosition({ x: null, y: null });
+      channel.postMessage({ x: null, y: null });
     };
 
     canvasEl.current.addEventListener("mouseup", handleMouseUp);
@@ -87,7 +89,9 @@ const Canvas = () => {
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.strokeStyle = "blue";
-    if (previousPosition) {
+
+    // if null, then line break. use same coords for both before & after of stroke.
+    if (previousPosition.x) {
       ctx.moveTo(previousPosition.x, previousPosition.y);
     } else {
       ctx.moveTo(position.x, position.y);
