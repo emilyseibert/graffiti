@@ -7,10 +7,10 @@ const StrokeConfigs = () => {
   const configs = useSelector((state) => state.strokeConfigs);
 
   return (
-    <>
+    <div className="mb-3">
       <Colorpicker color={configs.color} />
       <StrokeOpacity opacity={configs.opacity} />
-    </>
+    </div>
   );
 };
 
