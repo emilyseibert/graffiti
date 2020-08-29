@@ -1,6 +1,9 @@
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBroadcast } from "../actions";
+/*
+https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
+*/
 function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
@@ -23,11 +26,6 @@ const Canvas = () => {
   };
 
   const channel = useMemo(() => new BroadcastChannel("graffiti"), []);
-
-  // // handles broadcasting --> remove?
-  // useEffect(() => {
-  //   channel.postMessage(`broadcast is ${broadcasting ? "on" : "off"}`);
-  // }, [broadcasting]);
 
   // handles mouse down
   useEffect(() => {
@@ -81,6 +79,7 @@ const Canvas = () => {
 
   // handles drawing when position changes
   useEffect(() => {
+    // original logic from: https://www.geeksforgeeks.org/how-to-draw-with-mouse-in-html-5-canvas/
     if (!isDrawing) return;
     const ctx = canvasEl.current.getContext("2d");
 
@@ -97,16 +96,7 @@ const Canvas = () => {
     ctx.stroke();
   }, [position]);
 
-  return (
-    <div>
-      <h1>Canvas Component</h1>
-      <div>Broadcast is {broadcasting ? "on" : "off"}</div>
-      <div> {isDrawing ? "drawing!" : "not drawing"}</div>
-
-      <button onClick={toggleBroadcasting}>Toggle broadcasting</button>
-      <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>
-    </div>
-  );
+  return <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>;
 };
 
 export default Canvas;

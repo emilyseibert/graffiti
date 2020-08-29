@@ -6,6 +6,7 @@ const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
 const draw = (channelCoords) => {
+  // original logic from: https://www.geeksforgeeks.org/how-to-draw-with-mouse-in-html-5-canvas/
   ctx.beginPath();
 
   ctx.lineWidth = 5;
@@ -24,6 +25,7 @@ const draw = (channelCoords) => {
   ctx.lineTo(coord.x, coord.y);
   ctx.stroke();
 };
+
 channel.addEventListener("message", (event) => {
   // if data is null, then mouseup has fired. reset coords.
   if (!event.data) {
@@ -32,4 +34,8 @@ channel.addEventListener("message", (event) => {
   } else {
     draw(event.data);
   }
+});
+
+window.addEventListener("unload", () => {
+  channel.close();
 });
