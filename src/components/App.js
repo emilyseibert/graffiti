@@ -5,6 +5,7 @@ import { startChannel, closeChannel } from "../actions";
 import Canvas from "./Canvas";
 import Header from "./Header";
 import Colorpicker from "./Colorpicker";
+import StrokeOpacity from "./StrokeOpacity";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const App = () => {
           it on its own screen.
         </div>
         <Colorpicker />
-
+        <StrokeOpacity />
         <Canvas />
         <button
           className="mt-2 px-3 py-2 bg-red-600 text-white rounded-sm"

@@ -26,6 +26,7 @@ const draw = (channelCoords) => {
   ctx.lineWidth = 5;
   ctx.lineCap = "round";
   ctx.strokeStyle = channelCoords.color;
+  ctx.globalAlpha = channelCoords.opacity;
   ctx.moveTo(coord.x, coord.y);
 
   // update coords to be channelCoords

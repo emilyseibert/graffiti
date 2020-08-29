@@ -15,3 +15,7 @@ export const changeColor = (color) => ({
   type: "CHANGE_COLOR",
   color,
 });
+export const changeOpacity = (opacity) => ({
+  type: "CHANGE_OPACITY",
+  opacity,
+});
