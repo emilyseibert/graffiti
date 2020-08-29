@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addPosition, sendMessage } from "../actions";
+import { addPosition } from "../actions";
 
 /*
 https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
@@ -96,7 +96,13 @@ const Canvas = () => {
     channel.postMessage(position);
   }, [channel, position]);
 
-  return <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>;
+  return (
+    <div>
+      <h1 className="text-4xl text-white bg-pink">Hello</h1>
+
+      <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>
+    </div>
+  );
 };
 
 export default Canvas;
