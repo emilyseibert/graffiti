@@ -16,6 +16,7 @@ function usePrevious(value) {
 const Canvas = () => {
   const dispatch = useDispatch();
   const channel = useSelector((state) => state.channel);
+  const color = useSelector((state) => state.strokeConfigs.color);
   const canvasEl = useRef(null);
 
   const [isDrawing, setIsDrawing] = useState(false);
@@ -77,7 +78,7 @@ const Canvas = () => {
     ctx.beginPath();
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
-    // ctx.strokeStyle = "blue";
+    ctx.strokeStyle = color;
 
     // if null, then line break. use same coords for both before & after of stroke.
     if (previousPosition.x) {

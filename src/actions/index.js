@@ -10,3 +10,8 @@ export const startChannel = () => ({
 export const closeChannel = () => ({
   type: "CLOSE_CHANNEL",
 });
+
+export const changeColor = (color) => ({
+  type: "CHANGE_COLOR",
+  color,
+});

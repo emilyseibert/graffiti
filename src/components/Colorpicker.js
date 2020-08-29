@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { changeColor } from "../actions";
 
 const Colorpicker = () => {
-  const [color, setColor] = useState("#000");
+  const dispatch = useDispatch();
+  const color = useSelector((state) => state.strokeConfigs.color);
 
-  const changeColor = (e) => {
-    setColor(e.target.value);
-  };
   return (
     <div className="inline-block flex flex-row items-center mb-2">
       <input
@@ -13,10 +13,10 @@ const Colorpicker = () => {
         type="color"
         id="stroke"
         name="head"
-        onChange={changeColor}
+        onChange={(e) => dispatch(changeColor(e.target.value))}
         value={color}
       />
-      <label className="ml-1" for="stroke">
+      <label className="ml-1" htmlFor="stroke">
         Choose your color!
       </label>
     </div>
