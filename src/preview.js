@@ -40,6 +40,9 @@ channel.addEventListener("message", (event) => {
   // if data at x coord is null, then mouseup has fired. reset coords.
   if (Array.isArray(event.data)) {
     event.data.forEach((pos) => draw(pos));
+  }
+  if (event.data === "clear") {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   } else {
     draw(event.data);
   }

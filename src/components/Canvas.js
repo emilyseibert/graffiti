@@ -98,6 +98,7 @@ const Canvas = () => {
 
   return (
     <canvas
+      id="canvas"
       ref={canvasEl}
       className="border-solid border-4 border-gray-600"
     ></canvas>
