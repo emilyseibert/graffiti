@@ -93,8 +93,8 @@ const Canvas = () => {
   // handles state when position changes
   useEffect(() => {
     if (!channel) return;
-    dispatch(addPosition(position));
-    channel.postMessage(position);
+    dispatch(addPosition({ ...position, color }));
+    channel.postMessage({ ...position, color });
   }, [channel, position]);
 
   return (
