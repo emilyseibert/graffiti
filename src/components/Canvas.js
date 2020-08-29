@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBroadcast } from "../actions";
 
@@ -8,6 +8,12 @@ const Canvas = () => {
   const toggleBroadcasting = () => {
     dispatch(toggleBroadcast(!broadcasting));
   };
+
+  const channel = useMemo(() => new BroadcastChannel("graffiti"), []);
+
+  useEffect(() => {
+    channel.postMessage(`broadcast is ${broadcasting ? "on" : "off"}`);
+  }, [broadcasting]);
 
   return (
     <div>
