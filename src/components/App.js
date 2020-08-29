@@ -4,8 +4,7 @@ import { startChannel, closeChannel } from "../actions";
 
 import Canvas from "./Canvas";
 import Header from "./Header";
-import Colorpicker from "./Colorpicker";
-import StrokeOpacity from "./StrokeOpacity";
+import StrokeConfigs from "./StrokeConfigs";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,8 +31,7 @@ const App = () => {
           Draw whatever you'd like inside of the gray box! Press Preview to see
           it on its own screen.
         </div>
-        <Colorpicker />
-        <StrokeOpacity />
+        <StrokeConfigs />
         <Canvas />
         <button
           className="mt-2 px-3 py-2 bg-red-600 text-white rounded-sm"

@@ -1,10 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeColor } from "../actions";
 
-const Colorpicker = () => {
+const Colorpicker = ({ color }) => {
   const dispatch = useDispatch();
-  const color = useSelector((state) => state.strokeConfigs.color);
 
   return (
     <div className="inline-block flex flex-row items-center mb-2">

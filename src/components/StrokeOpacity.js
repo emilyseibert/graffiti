@@ -1,11 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeOpacity } from "../actions";
 
-const StrokeOpacity = () => {
+const StrokeOpacity = ({ opacity }) => {
   const dispatch = useDispatch();
-  const opacity = useSelector((state) => state.strokeConfigs.opacity);
-
   return (
     <div>
       <input
