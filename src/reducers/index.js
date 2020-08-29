@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import broadcast from "./broadcast";
+import draw from "./draw";
 
 export default combineReducers({
-  broadcast,
+  draw,
 });

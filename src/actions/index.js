@@ -1,4 +1,4 @@
-export const toggleBroadcast = (status) => ({
-  type: "TOGGLE_BROADCAST",
-  status,
+export const addPosition = (position) => ({
+  type: "ADD_POSITION",
+  position,
 });

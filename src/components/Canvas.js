@@ -16,7 +16,7 @@ const Canvas = () => {
   const dispatch = useDispatch();
   // drawPath is [{x: ..., y:...}] where if coord x/y is null ==> line break
   const drawPath = useSelector((state) => state.draw);
-  const addPosition = () => {
+  const dispatchAddPosition = () => {
     // when firing update to store, pass in local state position from mouseevent
     dispatch(addPosition(position));
   };
@@ -39,6 +39,7 @@ const Canvas = () => {
       };
       channel.postMessage(nextPosition);
       setPosition(nextPosition);
+      dispatchAddPosition(nextPosition);
     };
 
     canvasEl.current.addEventListener("mousedown", handleMouseDown);
@@ -57,6 +58,7 @@ const Canvas = () => {
       channel.postMessage(nextPosition);
 
       setPosition(nextPosition);
+      dispatchAddPosition(nextPosition);
     };
 
     canvasEl.current.addEventListener("mousemove", handleMouseMove);
@@ -70,6 +72,7 @@ const Canvas = () => {
       setIsDrawing(false);
       setPosition({ x: null, y: null });
       channel.postMessage({ x: null, y: null });
+      dispatchAddPosition({ x: null, y: null });
     };
 
     canvasEl.current.addEventListener("mouseup", handleMouseUp);
@@ -100,6 +103,7 @@ const Canvas = () => {
     ctx.stroke();
   }, [position]);
 
+  console.log("line path positions", drawPath);
   return <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>;
 };
 
