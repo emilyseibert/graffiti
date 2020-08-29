@@ -1,11 +1,12 @@
 // default state of drawing is []
-const broadcast = (state = [], action) => {
+const draw = (state = [], action) => {
   switch (action.type) {
     case "ADD_POSITION":
+      debugger;
       return [...state, action.position];
     default:
       return state;
   }
 };
 
-export default broadcast;
+export default draw;

@@ -6,7 +6,16 @@ const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
 const draw = (channelCoords) => {
+  if (!coord.x) {
+    // set the new "moveTo" coords. since we're using channelCoords, we have nothing to lineTo. return early.
+    coord.x = channelCoords.x;
+    coord.y = channelCoords.y;
+    return;
+  }
+
   if (!channelCoords.x) {
+    // we have previous coords, but we're registering a line break.
+    // reset the line back to null and return early.
     coord.x = null;
     coord.y = null;
     return;
@@ -17,15 +26,7 @@ const draw = (channelCoords) => {
   ctx.lineWidth = 5;
   ctx.lineCap = "round";
   ctx.strokeStyle = "green";
-
-  // if previous coord.x is null, then we've registered line break.
-  // use same coords for both before & after of stroke to begin a new line
-  if (coord.x) {
-    ctx.moveTo(coord.x, coord.y);
-  } else {
-    console.log("line break!", channelCoords);
-    ctx.moveTo(channelCoords.x, channelCoords.y);
-  }
+  ctx.moveTo(coord.x, coord.y);
 
   // update coords to be channelCoords
   coord.x = channelCoords.x;

@@ -14,8 +14,6 @@ function usePrevious(value) {
 
 const Canvas = () => {
   const dispatch = useDispatch();
-  // drawPath is [{x: ..., y:...}] where if coord x/y is null ==> line break
-  const drawPath = useSelector((state) => state.draw);
   const dispatchAddPosition = () => {
     // when firing update to store, pass in local state position from mouseevent
     dispatch(addPosition(position));
@@ -37,9 +35,7 @@ const Canvas = () => {
         x: e.clientX - canvasEl.current.offsetLeft,
         y: e.clientY - canvasEl.current.offsetTop,
       };
-      channel.postMessage(nextPosition);
       setPosition(nextPosition);
-      dispatchAddPosition(nextPosition);
     };
 
     canvasEl.current.addEventListener("mousedown", handleMouseDown);
@@ -55,24 +51,19 @@ const Canvas = () => {
         x: e.clientX - canvasEl.current.offsetLeft,
         y: e.clientY - canvasEl.current.offsetTop,
       };
-      channel.postMessage(nextPosition);
-
       setPosition(nextPosition);
-      dispatchAddPosition(nextPosition);
     };
 
     canvasEl.current.addEventListener("mousemove", handleMouseMove);
     return () =>
       canvasEl.current.removeEventListener("mousemove", handleMouseMove);
-  });
+  }, [isDrawing]);
 
   // handle mouse up
   useEffect(() => {
     const handleMouseUp = (e) => {
       setIsDrawing(false);
       setPosition({ x: null, y: null });
-      channel.postMessage({ x: null, y: null });
-      dispatchAddPosition({ x: null, y: null });
     };
 
     canvasEl.current.addEventListener("mouseup", handleMouseUp);
@@ -103,7 +94,12 @@ const Canvas = () => {
     ctx.stroke();
   }, [position]);
 
-  console.log("line path positions", drawPath);
+  // handles state when position changes
+  useEffect(() => {
+    channel.postMessage(position);
+    dispatchAddPosition(position);
+  }, [position]);
+
   return <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>;
 };
 

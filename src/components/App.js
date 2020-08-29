@@ -5,6 +5,7 @@ import Canvas from "./Canvas";
 
 const App = () => {
   const channel = useMemo(() => new BroadcastChannel("graffiti"), []);
+  // drawPath is [{x: ..., y:...}] where if coord x/y is null ==> line break
   const drawPath = useSelector((state) => state.draw);
 
   const onClick = (e) => {
@@ -17,6 +18,7 @@ const App = () => {
     });
   };
 
+  console.log("draw path", drawPath);
   return (
     <>
       <h1 className="text-4xl text-white bg-black">Hello</h1>
