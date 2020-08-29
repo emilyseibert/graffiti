@@ -4,6 +4,7 @@ import { startChannel, closeChannel } from "../actions";
 
 import Canvas from "./Canvas";
 import Header from "./Header";
+import Colorpicker from "./Colorpicker";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,8 +31,15 @@ const App = () => {
           Draw whatever you'd like inside of the gray box! Press Preview to see
           it on its own screen.
         </div>
+        <Colorpicker />
+
         <Canvas />
-        <button onClick={clearCanvas}>Clear</button>
+        <button
+          className="mt-2 px-3 py-2 bg-red-600 text-white rounded-sm"
+          onClick={clearCanvas}
+        >
+          Clear
+        </button>
       </div>
     </>
   );
