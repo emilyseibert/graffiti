@@ -1,5 +1,5 @@
 // Stores the initial position of the cursor
-let coord = { x: 0, y: 0 };
+let coord = { x: null, y: null };
 
 const channel = new BroadcastChannel("graffiti");
 const canvas = document.querySelector("#canvas");
@@ -11,7 +11,11 @@ channel.addEventListener("message", (event) => {
   ctx.lineWidth = 5;
   ctx.lineCap = "round";
   ctx.strokeStyle = "green";
-  ctx.moveTo(coord.x, coord.y);
+  if (coord.x) {
+    ctx.moveTo(coord.x, coord.y);
+  } else {
+    ctx.moveTo(event.data.x, event.data.y);
+  }
 
   // position from channel
   coord.x = event.data.x;
