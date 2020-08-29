@@ -77,7 +77,7 @@ const Canvas = () => {
     ctx.beginPath();
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
-    ctx.strokeStyle = "blue";
+    // ctx.strokeStyle = "blue";
 
     // if null, then line break. use same coords for both before & after of stroke.
     if (previousPosition.x) {
@@ -97,11 +97,10 @@ const Canvas = () => {
   }, [channel, position]);
 
   return (
-    <div>
-      <h1 className="text-4xl text-white bg-pink">Hello</h1>
-
-      <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>
-    </div>
+    <canvas
+      ref={canvasEl}
+      className="border-solid border-4 border-gray-600"
+    ></canvas>
   );
 };
 
