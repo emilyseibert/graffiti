@@ -1,6 +1,7 @@
-import React, { useMemo, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addPosition } from "../actions";
+import { addPosition, sendMessage } from "../actions";
+
 /*
 https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
 */
@@ -14,18 +15,12 @@ function usePrevious(value) {
 
 const Canvas = () => {
   const dispatch = useDispatch();
-  const dispatchAddPosition = () => {
-    // when firing update to store, pass in local state position from mouseevent
-    dispatch(addPosition(position));
-  };
-
+  const channel = useSelector((state) => state.channel);
   const canvasEl = useRef(null);
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [position, setPosition] = useState({ x: null, y: null });
   const previousPosition = usePrevious(position);
-
-  const channel = useMemo(() => new BroadcastChannel("graffiti"), []);
 
   // handles mouse down
   useEffect(() => {
@@ -96,9 +91,10 @@ const Canvas = () => {
 
   // handles state when position changes
   useEffect(() => {
+    if (!channel) return;
+    dispatch(addPosition(position));
     channel.postMessage(position);
-    dispatchAddPosition(position);
-  }, [position]);
+  }, [channel, position]);
 
   return <canvas ref={canvasEl} style={{ border: "2px solid gray" }}></canvas>;
 };

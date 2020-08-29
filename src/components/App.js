@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { startChannel, closeChannel, sendMessage } from "../actions";
+import { startChannel, closeChannel } from "../actions";
 
 import Canvas from "./Canvas";
 
@@ -8,6 +8,7 @@ const App = () => {
   const dispatch = useDispatch();
   // drawPath is [{x: ..., y:...}] where if coord x/y is null ==> line break
   const drawPath = useSelector((state) => state.draw);
+  const channel = useSelector((state) => state.channel);
 
   const onClick = (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ const App = () => {
     const newWindow = window.open(`${window.location.origin}/preview.html`);
     newWindow.addEventListener("load", () => {
       // send store of draw
-      dispatch(sendMessage(drawPath));
+      channel.postMessage(drawPath);
     });
   };
 
