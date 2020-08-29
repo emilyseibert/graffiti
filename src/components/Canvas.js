@@ -1,10 +1,20 @@
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBroadcast } from "../actions";
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
 
 const Canvas = () => {
   const canvasEl = useRef(null);
+
   const [isDrawing, setIsDrawing] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const previousPosition = usePrevious(position);
 
   const dispatch = useDispatch();
   const broadcasting = useSelector((state) => state.broadcast);
@@ -26,49 +36,54 @@ const Canvas = () => {
     }
   }, [isDrawing]);
 
-  // handles mouse events for drawing
+  // handles mouse events status
   useEffect(() => {
     const handleMouse = (e) => {
       const isStartingToDraw = e.type === "mousedown";
       setIsDrawing(isStartingToDraw);
+
+      if (isStartingToDraw) {
+        setPosition({
+          x: e.clientX - canvasEl.current.offsetLeft,
+          y: e.clientY - canvasEl.current.offsetTop,
+        });
+      }
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDrawing) return;
+      setPosition({
+        x: e.clientX - canvasEl.current.offsetLeft,
+        y: e.clientY - canvasEl.current.offsetTop,
+      });
     };
     canvasEl.current.addEventListener("mousedown", handleMouse);
     canvasEl.current.addEventListener("mouseup", handleMouse);
+    canvasEl.current.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       canvasEl.current.removeEventListener("mousedown", handleMouse);
       canvasEl.current.removeEventListener("mouseup", handleMouse);
+      canvasEl.current.removeEventListener("mousemove", handleMouseMove);
     };
   }, [isDrawing]);
 
-  const sketch = (e) => {
+  // handles drawing when position changes
+  useEffect(() => {
     if (!isDrawing) return;
-    // canvasEl.beginPath();
+    const ctx = canvasEl.current.getContext("2d");
 
-    // canvasEl.lineWidth = 5;
-
-    // // Sets the end of the lines drawn
-    // // to a round shape.
-    // canvasEl.lineCap = 'round';
-
-    // canvasEl.strokeStyle = 'green';
-
-    // // The cursor to start drawing
-    // // moves to this coordinate
-    // canvasEl.moveTo(coord.x, coord.y);
-
-    // // The position of the cursor
-    // // gets updated as we move the
-    // // mouse around.
-    // getPosition(event);
-
-    // // A line is traced from start
-    // // coordinate to this coordinate
-    // canvasEl.lineTo(coord.x , coord.y);
-
-    // // Draws the line.
-    // canvasEl.stroke();
-  };
+    ctx.beginPath();
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "blue";
+    console.log(
+      `from ${previousPosition.x},${previousPosition.y} to ${position.x}, ${position.y}`
+    );
+    ctx.moveTo(previousPosition.x, previousPosition.y);
+    ctx.lineTo(position.x, position.y);
+    ctx.stroke();
+  }, [position]);
 
   return (
     <div>
