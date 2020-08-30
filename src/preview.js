@@ -1,6 +1,5 @@
 // Stores the initial position of the cursor
 let coord = { x: null, y: null };
-
 const channel = new BroadcastChannel("graffiti");
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
@@ -51,4 +50,14 @@ channel.addEventListener("message", (event) => {
 
 window.addEventListener("unload", () => {
   channel.close();
+});
+
+const download = document.getElementById("download");
+download.addEventListener("click", () => {
+  const image = canvas
+    .toDataURL("image/png")
+    .replace("image/png", "image/octet-stream"); // here is the most important part because if you dont replace you will get a DOM 18 exception.
+  window.location.href = image; // it will save locally
+
+  // TODO: can i change the file name?
 });
