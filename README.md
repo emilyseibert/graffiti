@@ -2,10 +2,16 @@
 
 This project is to develop an application that enables a user to see a live drawing in another browser window.
 
+Important URLS: 
+* Main app `http://localhost:1234/index.html`
+* Preview url `http://localhost:1234/preview.html`
+
 I've added 
 * TailwindCSS
 * Color and Opacity configurations
 * PropTypes
+* Clear functionality
+* Download functionality
   
 I've used
 * Redux with Hooks & with HOCs
