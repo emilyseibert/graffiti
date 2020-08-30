@@ -1,17 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import Colorpicker from "./Colorpicker";
 import StrokeOpacity from "./StrokeOpacity";
 
-const StrokeConfigs = () => {
-  const configs = useSelector((state) => state.strokeConfigs);
-
+const StrokeConfigs = ({ strokeConfigs }) => {
   return (
     <div className="mb-3">
-      <Colorpicker color={configs.color} />
-      <StrokeOpacity opacity={configs.opacity} />
+      <Colorpicker color={strokeConfigs.color} />
+      <StrokeOpacity opacity={strokeConfigs.opacity} />
     </div>
   );
 };
 
-export default StrokeConfigs;
+const mapStateToProps = (state, props) => ({
+  strokeConfigs: state.strokeConfigs,
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StrokeConfigs);

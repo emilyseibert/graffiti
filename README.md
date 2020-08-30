@@ -5,6 +5,7 @@ This project is to develop an application that enables a user to see a live draw
 I've added 
 * TailwindCSS
 * Color and Opacity configurations
+* PropTypes
   
 I've used
 * Redux with Hooks
@@ -23,6 +24,7 @@ To run in hot module reloading mode:
 
 ```sh
 npm start
+open "http://localhost:1234/index.html"
 ```
 
 To create a production build:
