@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import PreviewButton from "./PreviewButton";
 
 const Header = () => {
   // drawPath is [{x: ..., y:...}] where if coord x/y is null ==> line break
@@ -34,13 +35,7 @@ const Header = () => {
       </div>
       <div>
         <div>
-          <a
-            href="#"
-            className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-            onClick={onClick}
-          >
-            Preview
-          </a>
+          <PreviewButton className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0" />
         </div>
       </div>
     </nav>

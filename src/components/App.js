@@ -7,6 +7,7 @@ import Header from "./Header";
 import StrokeConfigs from "./StrokeConfigs";
 import ClearButton from "./ClearButton";
 import DownloadButton from "./DownloadButton";
+import PreviewButton from "./PreviewButton";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,8 +28,11 @@ const App = () => {
         </div>
         <StrokeConfigs />
         <Canvas />
-        <ClearButton />
-        <DownloadButton />
+        <div>
+          <ClearButton />
+          <DownloadButton />
+          <PreviewButton className="ml-12 px-4 py-2 underline text-blue-600" />
+        </div>
       </div>
     </>
   );
