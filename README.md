@@ -1,6 +1,15 @@
 # graffiti
 
-Empty project.
+This project is to develop an application that enables a user to see a live drawing in another browser window.
+
+I've added 
+* TailwindCSS
+* Color and Opacity configurations
+  
+I've used
+* Redux with Hooks
+* React Hooks
+* Parcel for bundling
 
 ## Building and running on localhost
 
@@ -21,20 +30,3 @@ To create a production build:
 ```sh
 npm run build-prod
 ```
-
-## Running
-
-Open the file `dist/index.html` in your browser
-
-## Testing
-
-To run unit tests:
-
-```sh
-npm test
-```
-
-## Credits
-
-Made with [createapp.dev](https://createapp.dev/)
-
