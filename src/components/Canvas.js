@@ -1,17 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addPosition } from "../actions";
-
-/*
-https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
-*/
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
+import { usePrevious } from "../customHooks";
 
 const Canvas = () => {
   const dispatch = useDispatch();

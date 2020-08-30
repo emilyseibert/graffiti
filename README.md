@@ -8,7 +8,7 @@ I've added
 * PropTypes
   
 I've used
-* Redux with Hooks
+* Redux with Hooks & with HOCs
 * React Hooks
 * Parcel for bundling
 
