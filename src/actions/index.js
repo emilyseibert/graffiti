@@ -3,6 +3,10 @@ export const addPosition = (position) => ({
   position,
 });
 
+export const clearDrawing = () => ({
+  type: "CLEAR_DRAWING",
+});
+
 export const startChannel = () => ({
   type: "START_CHANNEL",
 });

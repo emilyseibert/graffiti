@@ -1,9 +1,11 @@
 import React from "react";
 import Button from "./Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearDrawing } from "../actions";
 
 const ClearButton = () => {
   const channel = useSelector((state) => state.channel);
+  const dispatch = useDispatch();
 
   const clearCanvas = () => {
     // TODO: can i do this without document.getElementById? how does responsive canvas fit into this?
@@ -11,6 +13,7 @@ const ClearButton = () => {
     const canvasContext = canvas.getContext("2d");
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     channel.postMessage("clear");
+    dispatch(clearDrawing());
   };
 
   return (
