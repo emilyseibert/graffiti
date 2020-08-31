@@ -18,6 +18,8 @@ I've used
 * React Hooks
 * Parcel for bundling
 
+![demo of main page](https://github.com/emilyseibert/graffiti/blob/main/demo.gif)
+
 ## Building and running on localhost
 
 First install dependencies:
